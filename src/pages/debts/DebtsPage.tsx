@@ -212,83 +212,85 @@ export default function DebtsPage() {
 
       <Modal isOpen={showForm} onClose={() => { setShowForm(false); resetForm(); }} title={editingDebt ? 'Edit Debt' : 'Add Debt'}>
         <form onSubmit={handleSubmit} className="space-y-4">
-          <Input
-            label="Debt Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            placeholder="e.g., Chase Credit Card"
-            required
-          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <Input
+              label="Debt Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="e.g., Chase Credit Card"
+              required
+            />
 
-          <Select
-            label="Debt Type"
-            value={formData.debtType}
-            onChange={(e) => setFormData({ ...formData, debtType: e.target.value as any })}
-            options={[
-              { value: 'CREDIT_CARD', label: 'Credit Card' },
-              { value: 'PERSONAL_LOAN', label: 'Personal Loan' },
-              { value: 'AUTO_LOAN', label: 'Auto Loan' },
-              { value: 'MORTGAGE', label: 'Mortgage' },
-              { value: 'STUDENT_LOAN', label: 'Student Loan' },
-              { value: 'OTHER', label: 'Other' },
-            ]}
-          />
+            <Select
+              label="Debt Type"
+              value={formData.debtType}
+              onChange={(e) => setFormData({ ...formData, debtType: e.target.value as any })}
+              options={[
+                { value: 'CREDIT_CARD', label: 'Credit Card' },
+                { value: 'PERSONAL_LOAN', label: 'Personal Loan' },
+                { value: 'AUTO_LOAN', label: 'Auto Loan' },
+                { value: 'MORTGAGE', label: 'Mortgage' },
+                { value: 'STUDENT_LOAN', label: 'Student Loan' },
+                { value: 'OTHER', label: 'Other' },
+              ]}
+            />
 
-          <Input
-            label="Principal Amount"
-            type="number"
-            step="0.01"
-            value={formData.principalAmount}
-            onChange={(e) => setFormData({ ...formData, principalAmount: parseFloat(e.target.value) || 0 })}
-            placeholder="Original amount borrowed"
-            required
-          />
+            <Input
+              label="Principal Amount"
+              type="number"
+              step="0.01"
+              value={formData.principalAmount}
+              onChange={(e) => setFormData({ ...formData, principalAmount: parseFloat(e.target.value) || 0 })}
+              placeholder="Original amount borrowed"
+              required
+            />
 
-          <Input
-            label="Current Balance"
-            type="number"
-            step="0.01"
-            value={formData.currentBalance}
-            onChange={(e) => setFormData({ ...formData, currentBalance: parseFloat(e.target.value) || 0 })}
-            placeholder="Current outstanding balance"
-            required
-          />
+            <Input
+              label="Current Balance"
+              type="number"
+              step="0.01"
+              value={formData.currentBalance}
+              onChange={(e) => setFormData({ ...formData, currentBalance: parseFloat(e.target.value) || 0 })}
+              placeholder="Current outstanding balance"
+              required
+            />
 
-          <Input
-            label="Interest Rate (%)"
-            type="number"
-            step="0.01"
-            value={formData.interestRate}
-            onChange={(e) => setFormData({ ...formData, interestRate: parseFloat(e.target.value) || 0 })}
-            placeholder="Annual interest rate"
-            required
-          />
+            <Input
+              label="Interest Rate (%)"
+              type="number"
+              step="0.01"
+              value={formData.interestRate}
+              onChange={(e) => setFormData({ ...formData, interestRate: parseFloat(e.target.value) || 0 })}
+              placeholder="Annual interest rate"
+              required
+            />
 
-          <Input
-            label="Minimum Payment"
-            type="number"
-            step="0.01"
-            value={formData.minimumPayment}
-            onChange={(e) => setFormData({ ...formData, minimumPayment: parseFloat(e.target.value) || 0 })}
-            placeholder="Monthly minimum payment"
-            required
-          />
+            <Input
+              label="Minimum Payment"
+              type="number"
+              step="0.01"
+              value={formData.minimumPayment}
+              onChange={(e) => setFormData({ ...formData, minimumPayment: parseFloat(e.target.value) || 0 })}
+              placeholder="Monthly minimum payment"
+              required
+            />
 
-          <Input
-            label="Start Date"
-            type="date"
-            value={formData.startDate}
-            onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-            required
-          />
+            <Input
+              label="Start Date"
+              type="date"
+              value={formData.startDate}
+              onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+              required
+            />
 
-          <Input
-            label="Target Payoff Date"
-            type="date"
-            value={formData.targetPayoffDate}
-            onChange={(e) => setFormData({ ...formData, targetPayoffDate: e.target.value })}
-            required
-          />
+            <Input
+              label="Target Payoff Date"
+              type="date"
+              value={formData.targetPayoffDate}
+              onChange={(e) => setFormData({ ...formData, targetPayoffDate: e.target.value })}
+              required
+            />
+          </div>
 
           <div className="flex gap-3 pt-4">
             <Button type="button" variant="secondary" onClick={() => { setShowForm(false); resetForm(); }} className="flex-1">

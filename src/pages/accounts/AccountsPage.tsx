@@ -33,7 +33,7 @@ export default function AccountsPage() {
     name: '',
     accountType: 'BANK_CHECKING',
     initialBalance: 0,
-    currency: 'USD',
+    currency: 'INR',
     color: '#3B82F6',
   });
 
@@ -100,7 +100,7 @@ export default function AccountsPage() {
       name: '',
       accountType: 'BANK_CHECKING',
       initialBalance: 0,
-      currency: 'USD',
+      currency: 'INR',
       color: '#3B82F6',
     });
   };
@@ -124,7 +124,7 @@ export default function AccountsPage() {
 
       <Card className="bg-gradient-to-br from-primary-600 to-purple-600 text-white">
         <h3 className="text-sm font-medium opacity-90">Total Balance</h3>
-        <p className="text-3xl font-bold mt-2">${totalBalance.toFixed(2)}</p>
+        <p className="text-3xl font-bold mt-2">₹{totalBalance.toFixed(2)}</p>
         <p className="text-sm opacity-75 mt-1">{accounts.filter(a => a.active).length} Active Accounts</p>
       </Card>
 
@@ -157,7 +157,7 @@ export default function AccountsPage() {
                   )}
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-bold text-dark-50">${account.currentBalance.toFixed(2)}</p>
+                  <p className="text-2xl font-bold text-dark-50">₹{account.currentBalance.toFixed(2)}</p>
                   <p className="text-xs text-dark-500 mt-1">{account.currency}</p>
                 </div>
                 <div className="flex gap-2 mt-4">

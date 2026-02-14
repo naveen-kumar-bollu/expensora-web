@@ -80,88 +80,122 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-2xl">
-      <h1 className="text-2xl font-bold text-dark-100">Profile</h1>
+    <div className="max-w-6xl mx-auto space-y-8 animate-fade-in">
+      <div className="text-center mb-8">
+        <h1 className="text-3xl font-bold gradient-text mb-2">Profile Settings</h1>
+        <p className="text-dark-400">Manage your account information and preferences</p>
+      </div>
 
-      {/* Account Info */}
-      <Card>
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-            {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+      {/* Profile Header */}
+      <Card className="p-8">
+        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <div className="flex-shrink-0">
+            <div className="w-24 h-24 rounded-3xl bg-gradient-to-br from-primary-500 to-purple-500 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+              {user?.name?.charAt(0)?.toUpperCase() || 'U'}
+            </div>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold text-dark-100">{user?.name}</h3>
-            <p className="text-sm text-dark-400">{user?.email}</p>
-            <span className="inline-block mt-1 px-2.5 py-0.5 bg-primary-500/10 text-primary-400 text-xs rounded-full font-medium">
-              {user?.role}
-            </span>
+          <div className="flex-1 text-center md:text-left">
+            <h2 className="text-2xl font-bold text-dark-100 mb-1">{user?.name}</h2>
+            <p className="text-lg text-dark-400 mb-3">{user?.email}</p>
+            <div className="flex flex-wrap justify-center md:justify-start gap-2">
+              <span className="inline-block px-3 py-1 bg-primary-500/10 text-primary-400 text-sm rounded-full font-medium border border-primary-500/20">
+                {user?.role}
+              </span>
+              <span className="inline-block px-3 py-1 bg-green-500/10 text-green-400 text-sm rounded-full font-medium border border-green-500/20">
+                Active
+              </span>
+            </div>
+          </div>
+          <div className="flex-shrink-0">
+            <Button variant="danger" onClick={handleLogout} className="flex items-center gap-2">
+              <HiLogout className="w-4 h-4" />
+              Sign Out
+            </Button>
           </div>
         </div>
-
-        <form onSubmit={profileForm.handleSubmit(handleProfileUpdate)} className="space-y-4">
-          <Input
-            label="Name"
-            icon={<HiUser className="w-5 h-5" />}
-            error={profileForm.formState.errors.name?.message}
-            {...profileForm.register('name')}
-          />
-          <Input
-            label="Email"
-            type="email"
-            icon={<HiMail className="w-5 h-5" />}
-            error={profileForm.formState.errors.email?.message}
-            {...profileForm.register('email')}
-          />
-          <Button type="submit" loading={profileLoading}>
-            Update Profile
-          </Button>
-        </form>
       </Card>
 
-      {/* Change Password */}
-      <Card>
-        <h3 className="text-lg font-semibold text-dark-100 mb-4">Change Password</h3>
-        <form onSubmit={passwordForm.handleSubmit(handlePasswordChange)} className="space-y-4">
-          <Input
-            label="Current Password"
-            type="password"
-            icon={<HiLockClosed className="w-5 h-5" />}
-            error={passwordForm.formState.errors.oldPassword?.message}
-            {...passwordForm.register('oldPassword')}
-          />
-          <Input
-            label="New Password"
-            type="password"
-            icon={<HiLockClosed className="w-5 h-5" />}
-            error={passwordForm.formState.errors.newPassword?.message}
-            {...passwordForm.register('newPassword')}
-          />
-          <Input
-            label="Confirm New Password"
-            type="password"
-            icon={<HiLockClosed className="w-5 h-5" />}
-            error={passwordForm.formState.errors.confirmPassword?.message}
-            {...passwordForm.register('confirmPassword')}
-          />
-          <Button type="submit" loading={passwordLoading}>
-            Change Password
-          </Button>
-        </form>
-      </Card>
-
-      {/* Logout */}
-      <Card>
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-lg font-semibold text-dark-100">Sign Out</h3>
-            <p className="text-sm text-dark-400">Logout from your account</p>
+      {/* Forms Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Profile Information */}
+        <Card className="p-6">
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold text-dark-100 mb-2">Personal Information</h3>
+            <p className="text-sm text-dark-400">Update your basic account details</p>
           </div>
-          <Button variant="danger" onClick={handleLogout}>
-            <HiLogout className="w-4 h-4 mr-2" />
-            Logout
-          </Button>
-        </div>
-      </Card>
+          <form onSubmit={profileForm.handleSubmit(handleProfileUpdate)} className="space-y-5">
+            <div className="space-y-1">
+              <Input
+                label="Full Name"
+                icon={<HiUser className="w-5 h-5" />}
+                error={profileForm.formState.errors.name?.message}
+                {...profileForm.register('name')}
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-1">
+              <Input
+                label="Email Address"
+                type="email"
+                icon={<HiMail className="w-5 h-5" />}
+                error={profileForm.formState.errors.email?.message}
+                {...profileForm.register('email')}
+                className="text-base"
+              />
+            </div>
+            <div className="pt-2">
+              <Button type="submit" loading={profileLoading} className="w-full">
+                Save Changes
+              </Button>
+            </div>
+          </form>
+        </Card>
+
+        {/* Password Security */}
+        <Card className="p-6">
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold text-dark-100 mb-2">Security Settings</h3>
+            <p className="text-sm text-dark-400">Change your password to keep your account secure</p>
+          </div>
+          <form onSubmit={passwordForm.handleSubmit(handlePasswordChange)} className="space-y-5">
+            <div className="space-y-1">
+              <Input
+                label="Current Password"
+                type="password"
+                icon={<HiLockClosed className="w-5 h-5" />}
+                error={passwordForm.formState.errors.oldPassword?.message}
+                {...passwordForm.register('oldPassword')}
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-1">
+              <Input
+                label="New Password"
+                type="password"
+                icon={<HiLockClosed className="w-5 h-5" />}
+                error={passwordForm.formState.errors.newPassword?.message}
+                {...passwordForm.register('newPassword')}
+                className="text-base"
+              />
+            </div>
+            <div className="space-y-1">
+              <Input
+                label="Confirm New Password"
+                type="password"
+                icon={<HiLockClosed className="w-5 h-5" />}
+                error={passwordForm.formState.errors.confirmPassword?.message}
+                {...passwordForm.register('confirmPassword')}
+                className="text-base"
+              />
+            </div>
+            <div className="pt-2">
+              <Button type="submit" loading={passwordLoading} className="w-full">
+                Update Password
+              </Button>
+            </div>
+          </form>
+        </Card>
+      </div>
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { HiPlus, HiTrash, HiRefresh } from 'react-icons/hi';
 import { recurringTransactionService } from '../../api/recurringTransactionService';
-import type { RecurringTransaction, RecurringTransactionCreateRequest, TransactionType, Frequency } from '../../types';
+import { categoryService } from '../../api/categoryService';
+import type { RecurringTransaction, RecurringTransactionCreateRequest, TransactionType, Frequency, Category } from '../../types';
 import { Button, Card, Modal } from '../../components';
 import toast from 'react-hot-toast';
 
@@ -15,6 +16,7 @@ export default function RecurringPage() {
   const [transactions, setTransactions] = useState<RecurringTransaction[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [categories, setCategories] = useState<Category[]>([]);
 
   const [formData, setFormData] = useState<RecurringTransactionCreateRequest>({
     categoryId: '',
@@ -28,6 +30,19 @@ export default function RecurringPage() {
   useEffect(() => {
     fetchTransactions();
   }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [formData.transactionType]);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await categoryService.getAll(formData.transactionType);
+      setCategories(response.data);
+    } catch (error) {
+      toast.error('Failed to load categories');
+    }
+  };
 
   const fetchTransactions = async () => {
     try {
@@ -99,7 +114,7 @@ export default function RecurringPage() {
         <Card>
           <h3 className="text-sm font-medium text-dark-400">Monthly Total</h3>
           <p className="text-3xl font-bold text-dark-50 mt-2">
-            ${activeTransactions
+            ₹{activeTransactions
               .filter(t => t.frequency === 'MONTHLY')
               .reduce((sum, t) => sum + (t.transactionType === 'INCOME' ? t.amount : -t.amount), 0)
               .toFixed(2)}
@@ -134,7 +149,7 @@ export default function RecurringPage() {
                       <p className={`text-lg font-bold ${
                         transaction.transactionType === 'INCOME' ? 'text-green-400' : 'text-red-400'
                       }`}>
-                        {transaction.transactionType === 'INCOME' ? '+' : '-'}${transaction.amount.toFixed(2)}
+                        {transaction.transactionType === 'INCOME' ? '+' : '-'}₹{transaction.amount.toFixed(2)}
                       </p>
                       <p className="text-xs text-dark-500">
                         Next: {transaction.lastExecutionDate || transaction.startDate}
@@ -191,12 +206,32 @@ export default function RecurringPage() {
           </div>
 
           <div>
+            <label className="block text-sm font-medium text-dark-300 mb-1">Category</label>
+            <select
+              value={formData.categoryId}
+              onChange={(e) => setFormData({ ...formData, categoryId: e.target.value })}
+              className="w-full px-4 py-2 bg-dark-700 border border-dark-600 rounded-lg text-dark-50"
+              required
+            >
+              <option value="">Select a category</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
             <label className="block text-sm font-medium text-dark-300 mb-1">Amount</label>
             <input
               type="number"
               step="0.01"
               value={formData.amount}
-              onChange={(e) => setFormData({ ...formData, amount: parseFloat(e.target.value) })}
+              onChange={(e) => {
+                const val = parseFloat(e.target.value);
+                setFormData({ ...formData, amount: isNaN(val) ? 0 : val });
+              }}
               className="w-full px-4 py-2 bg-dark-700 border border-dark-600 rounded-lg text-dark-50"
               required
             />
