@@ -10,6 +10,13 @@ import {
   HiLogout,
   HiMenuAlt2,
   HiX,
+  HiLibrary,
+  HiTrendingUp,
+  HiRefresh,
+  HiUpload,
+  HiCurrencyDollar,
+  HiUserGroup,
+  HiCalculator,
 } from 'react-icons/hi';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../api/authService';
@@ -20,6 +27,13 @@ const navItems = [
   { to: '/expenses', icon: HiCreditCard, label: 'Expenses' },
   { to: '/income', icon: HiCash, label: 'Income' },
   { to: '/budgets', icon: HiChartPie, label: 'Budgets' },
+  { to: '/accounts', icon: HiLibrary, label: 'Accounts' },
+  { to: '/goals', icon: HiTrendingUp, label: 'Goals' },
+  { to: '/recurring', icon: HiRefresh, label: 'Recurring' },
+  { to: '/debts', icon: HiCurrencyDollar, label: 'Debts' },
+  { to: '/households', icon: HiUserGroup, label: 'Households' },
+  { to: '/tax', icon: HiCalculator, label: 'Tax' },
+  { to: '/import-export', icon: HiUpload, label: 'Import/Export' },
   { to: '/reports', icon: HiDocumentReport, label: 'Reports' },
   { to: '/profile', icon: HiUser, label: 'Profile' },
 ];

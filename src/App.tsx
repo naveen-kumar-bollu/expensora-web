@@ -13,8 +13,15 @@ const DashboardPage = lazy(() => import('./pages/dashboard/DashboardPage'));
 const ExpensesPage = lazy(() => import('./pages/expenses/ExpensesPage'));
 const IncomePage = lazy(() => import('./pages/income/IncomePage'));
 const BudgetPage = lazy(() => import('./pages/budgets/BudgetPage'));
+const AccountsPage = lazy(() => import('./pages/accounts/AccountsPage'));
+const GoalsPage = lazy(() => import('./pages/goals/GoalsPage'));
+const RecurringPage = lazy(() => import('./pages/recurring/RecurringPage'));
 const ReportsPage = lazy(() => import('./pages/reports/ReportsPage'));
 const ProfilePage = lazy(() => import('./pages/profile/ProfilePage'));
+const ImportExportPage = lazy(() => import('./pages/import-export/ImportExportPage'));
+const DebtsPage = lazy(() => import('./pages/debts/DebtsPage'));
+const HouseholdsPage = lazy(() => import('./pages/households/HouseholdsPage'));
+const TaxPage = lazy(() => import('./pages/tax/TaxPage'));
 
 function LoadingSpinner() {
   return (
@@ -64,7 +71,14 @@ export default function App() {
           <Route path="/expenses" element={<ExpensesPage />} />
           <Route path="/income" element={<IncomePage />} />
           <Route path="/budgets" element={<BudgetPage />} />
+          <Route path="/accounts" element={<AccountsPage />} />
+          <Route path="/goals" element={<GoalsPage />} />
+          <Route path="/recurring" element={<RecurringPage />} />
           <Route path="/reports" element={<ReportsPage />} />
+          <Route path="/import-export" element={<ImportExportPage />} />
+          <Route path="/debts" element={<DebtsPage />} />
+          <Route path="/households" element={<HouseholdsPage />} />
+          <Route path="/tax" element={<TaxPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
 

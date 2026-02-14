@@ -231,3 +231,105 @@ export interface IncomeFilters extends PageRequest {
   endDate?: string;
   categoryId?: string;
 }
+
+// ─── Account Types ───
+export type AccountType = 'BANK_CHECKING' | 'BANK_SAVINGS' | 'CREDIT_CARD' | 'CASH' | 'DIGITAL_WALLET' | 'INVESTMENT';
+
+export interface AccountCreateRequest {
+  name: string;
+  accountType: AccountType;
+  initialBalance: number;
+  currency: string;
+  icon?: string;
+  color?: string;
+  isDefault?: boolean;
+}
+
+export interface Account {
+  id: string;
+  userId: string;
+  name: string;
+  accountType: AccountType;
+  initialBalance: number;
+  currentBalance: number;
+  currency: string;
+  icon: string;
+  color: string;
+  isDefault: boolean;
+  active: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ─── Transfer Types ───
+export interface TransferCreateRequest {
+  fromAccountId: string;
+  toAccountId: string;
+  amount: number;
+  description?: string;
+  transferDate: string;
+}
+
+export interface Transfer {
+  id: string;
+  fromAccountId: string;
+  fromAccountName: string;
+  toAccountId: string;
+  toAccountName: string;
+  amount: number;
+  description: string;
+  transferDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ─── Goal Types ───
+export type GoalType = 'SAVINGS' | 'DEBT_PAYOFF' | 'INVESTMENT' | 'PURCHASE';
+
+export interface GoalCreateRequest {
+  name: string;
+  description?: string;
+  goalType: GoalType;
+  targetAmount: number;
+  targetDate: string;
+  icon?: string;
+  color?: string;
+  priority?: number;
+}
+
+export interface Goal {
+  id: string;
+  userId: string;
+  name: string;
+  description: string;
+  goalType: GoalType;
+  targetAmount: number;
+  currentAmount: number;
+  targetDate: string;
+  icon: string;
+  color: string;
+  priority: number;
+  completed: boolean;
+  progressPercentage: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+// ─── Goal Contribution Types ───
+export interface GoalContributionCreateRequest {
+  goalId: string;
+  amount: number;
+  notes?: string;
+  contributionDate: string;
+}
+
+export interface GoalContribution {
+  id: string;
+  goalId: string;
+  goalName: string;
+  amount: number;
+  notes: string;
+  contributionDate: string;
+  createdAt: string;
+  updatedAt: string;
+}
