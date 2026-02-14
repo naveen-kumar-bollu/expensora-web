@@ -79,7 +79,8 @@ export default function ImportExportPage() {
               className="hidden"
               disabled={importing}
             />
-            <Button icon={HiUpload} disabled={importing} className="w-full">
+            <Button disabled={importing} className="w-full">
+              <HiUpload className="mr-2" />
               {importing ? 'Importing...' : 'Choose File'}
             </Button>
           </label>
@@ -92,11 +93,11 @@ export default function ImportExportPage() {
           </p>
           <div className="space-y-2">
             <Button
-              icon={HiDownload}
               variant="secondary"
               className="w-full"
               onClick={handleExportExpenses}
             >
+              <HiDownload className="mr-2" />
               Export Expenses
             </Button>
           </div>
