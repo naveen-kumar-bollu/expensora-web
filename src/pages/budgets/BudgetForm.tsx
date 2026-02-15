@@ -11,8 +11,8 @@ import { getMonthName, getCurrentYear } from '../../utils/helpers';
 const budgetSchema = z.object({
   categoryId: z.string().min(1, 'Category is required'),
   amount: z.coerce.number().positive('Amount must be positive'),
-  month: z.coerce.number().min(1).max(12),
-  year: z.coerce.number().min(2020).max(2100),
+  budgetMonth: z.coerce.number().min(1).max(12),
+  budgetYear: z.coerce.number().min(2020).max(2100),
 });
 
 type BudgetFormData = z.infer<typeof budgetSchema>;
@@ -40,8 +40,8 @@ export default function BudgetForm({
     defaultValues: {
       categoryId: budget?.categoryId || '',
       amount: budget?.amount || undefined,
-      month: budget?.month || currentMonth,
-      year: budget?.year || currentYear,
+      budgetMonth: budget?.budgetMonth || currentMonth,
+      budgetYear: budget?.budgetYear || currentYear,
     },
   });
 
@@ -95,14 +95,14 @@ export default function BudgetForm({
         <Select
           label="Month"
           options={monthOptions}
-          error={errors.month?.message}
-          {...register('month')}
+          error={errors.budgetMonth?.message}
+          {...register('budgetMonth')}
         />
         <Select
           label="Year"
           options={yearOptions}
-          error={errors.year?.message}
-          {...register('year')}
+          error={errors.budgetYear?.message}
+          {...register('budgetYear')}
         />
       </div>
 

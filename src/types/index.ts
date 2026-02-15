@@ -126,8 +126,8 @@ export interface Income {
 export interface BudgetCreateRequest {
   categoryId: string;
   amount: number;
-  month: number;
-  year: number;
+  budgetMonth: number;
+  budgetYear: number;
 }
 
 export interface Budget {
@@ -136,8 +136,8 @@ export interface Budget {
   categoryId: string;
   categoryName: string;
   amount: number;
-  month: number;
-  year: number;
+  budgetMonth: number;
+  budgetYear: number;
   spent: number;
   percentage: number;
 }

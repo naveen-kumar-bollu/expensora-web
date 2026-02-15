@@ -145,7 +145,7 @@ export default function BudgetPage() {
                   <div>
                     <h4 className="text-sm font-semibold text-dark-200">{budget.categoryName}</h4>
                     <p className="text-xs text-dark-500 mt-0.5">
-                      {getMonthName(budget.month)} {budget.year}
+                      {getMonthName(budget.budgetMonth)} {budget.budgetYear}
                     </p>
                   </div>
                   <div className="flex gap-1">
