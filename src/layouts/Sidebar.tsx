@@ -17,6 +17,9 @@ import {
   HiCurrencyDollar,
   HiUserGroup,
   HiCalculator,
+  HiCalendar,
+  HiSparkles,
+  HiSwitchHorizontal,
 } from 'react-icons/hi';
 import { useAuthStore } from '../store/authStore';
 import { authService } from '../api/authService';
@@ -33,6 +36,9 @@ const navItems = [
   { to: '/debts', icon: HiCurrencyDollar, label: 'Debts' },
   { to: '/households', icon: HiUserGroup, label: 'Households' },
   { to: '/tax', icon: HiCalculator, label: 'Tax' },
+  { to: '/calendar', icon: HiCalendar, label: 'Calendar' },
+  { to: '/splits', icon: HiSwitchHorizontal, label: 'Splits' },
+  { to: '/achievements', icon: HiSparkles, label: 'Achievements' },
   { to: '/import-export', icon: HiUpload, label: 'Import/Export' },
   { to: '/reports', icon: HiDocumentReport, label: 'Reports' },
   { to: '/profile', icon: HiUser, label: 'Profile' },
@@ -68,7 +74,7 @@ export default function Sidebar() {
       </div>
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1">
+      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         {navItems.map((item) => (
           <NavLink
             key={item.to}
@@ -89,19 +95,19 @@ export default function Sidebar() {
       </nav>
 
       {/* User & Logout */}
-      <div className="px-3 py-4 border-t border-dark-700/50 space-y-2">
+      <div className={`px-3 py-4 border-t border-dark-700/50 ${collapsed ? 'flex justify-center' : 'flex items-center justify-between'}`}>
         {!collapsed && user && (
-          <div className="px-3 py-2">
+          <div className="flex-1 pr-2">
             <p className="text-sm font-medium text-dark-200 truncate">{user.name}</p>
             <p className="text-xs text-dark-500 truncate">{user.email}</p>
           </div>
         )}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-dark-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 w-full"
+          title="Logout"
+          className="p-2 rounded-xl text-dark-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 flex-shrink-0"
         >
-          <HiLogout className="w-5 h-5 flex-shrink-0" />
-          {!collapsed && <span className="text-sm font-medium">Logout</span>}
+          <HiLogout className="w-5 h-5" />
         </button>
       </div>
     </div>

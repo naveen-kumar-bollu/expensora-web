@@ -63,7 +63,7 @@ export default function ExpenseForm({ expense, categories, onSuccess, onCancel }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <Input
         label="Amount"
         type="number"
@@ -107,7 +107,7 @@ export default function ExpenseForm({ expense, categories, onSuccess, onCancel }
         {...register('tags')}
       />
 
-      <div className="flex justify-end gap-3 pt-2">
+      <div className="flex justify-end gap-3 pt-2 md:col-span-2">
         <Button variant="secondary" type="button" onClick={onCancel}>
           Cancel
         </Button>

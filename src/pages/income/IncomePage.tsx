@@ -19,6 +19,8 @@ export default function IncomePage() {
   const [editingIncome, setEditingIncome] = useState<Income | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Income | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [showBulkDelete, setShowBulkDelete] = useState(false);
 
   const [filters, setFilters] = useState<IncomeFilters>({
     page: 0,
@@ -75,6 +77,35 @@ export default function IncomePage() {
     setDeleting(false);
   };
 
+  const handleBulkDelete = async () => {
+    setDeleting(true);
+    try {
+      await incomeService.bulkDelete(selectedIds);
+      toast.success(`${selectedIds.length} income entries deleted`);
+      setSelectedIds([]);
+      setShowBulkDelete(false);
+      loadIncomes();
+      loadMonthlySummary();
+    } catch {
+      toast.error('Failed to delete income entries');
+    }
+    setDeleting(false);
+  };
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.length === incomes.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(incomes.map((i) => i.id));
+    }
+  };
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -82,10 +113,18 @@ export default function IncomePage() {
           <h1 className="text-2xl font-bold text-dark-100">Income</h1>
           <p className="text-dark-400 text-sm mt-1">{totalElements} total entries</p>
         </div>
-        <Button onClick={() => { setEditingIncome(null); setShowForm(true); }}>
-          <HiPlus className="w-4 h-4 mr-2" />
-          Add Income
-        </Button>
+        <div className="flex gap-3">
+          {selectedIds.length > 0 && (
+            <Button variant="danger" onClick={() => setShowBulkDelete(true)}>
+              <HiTrash className="w-4 h-4 mr-2" />
+              Delete ({selectedIds.length})
+            </Button>
+          )}
+          <Button onClick={() => { setEditingIncome(null); setShowForm(true); }}>
+            <HiPlus className="w-4 h-4 mr-2" />
+            Add Income
+          </Button>
+        </div>
       </div>
 
       {/* Monthly Summary */}
@@ -140,6 +179,14 @@ export default function IncomePage() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-dark-700 text-left">
+                  <th className="p-4">
+                    <input
+                      type="checkbox"
+                      checked={selectedIds.length === incomes.length && incomes.length > 0}
+                      onChange={toggleSelectAll}
+                      className="rounded bg-dark-700 border-dark-600"
+                    />
+                  </th>
                   <th className="p-4 text-dark-400 font-medium">Description</th>
                   <th className="p-4 text-dark-400 font-medium">Category</th>
                   <th className="p-4 text-dark-400 font-medium">Date</th>
@@ -150,6 +197,14 @@ export default function IncomePage() {
               <tbody>
                 {incomes.map((income) => (
                   <tr key={income.id} className="border-b border-dark-700/50 hover:bg-dark-800/50 transition-colors">
+                    <td className="p-4">
+                      <input
+                        type="checkbox"
+                        checked={selectedIds.includes(income.id)}
+                        onChange={() => toggleSelect(income.id)}
+                        className="rounded bg-dark-700 border-dark-600"
+                      />
+                    </td>
                     <td className="p-4 text-dark-200 font-medium">{income.description}</td>
                     <td className="p-4">
                       <span className="px-2.5 py-1 rounded-lg bg-green-500/10 text-green-400 text-xs font-medium">
@@ -211,6 +266,16 @@ export default function IncomePage() {
         onConfirm={handleDelete}
         title="Delete Income"
         message={`Are you sure you want to delete "${deleteTarget?.description}"?`}
+        loading={deleting}
+      />
+
+      {/* Bulk Delete Confirm */}
+      <ConfirmDialog
+        isOpen={showBulkDelete}
+        onClose={() => setShowBulkDelete(false)}
+        onConfirm={handleBulkDelete}
+        title="Delete Selected Income Entries"
+        message={`Are you sure you want to delete ${selectedIds.length} income entry(s)?`}
         loading={deleting}
       />
     </div>

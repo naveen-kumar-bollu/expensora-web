@@ -22,6 +22,9 @@ const ImportExportPage = lazy(() => import('./pages/import-export/ImportExportPa
 const DebtsPage = lazy(() => import('./pages/debts/DebtsPage'));
 const HouseholdsPage = lazy(() => import('./pages/households/HouseholdsPage'));
 const TaxPage = lazy(() => import('./pages/tax/TaxPage'));
+const CalendarPage = lazy(() => import('./pages/calendar/CalendarPage'));
+const GamificationPage = lazy(() => import('./pages/gamification/GamificationPage'));
+const SplitsPage = lazy(() => import('./pages/splits/SplitsPage'));
 
 function LoadingSpinner() {
   return (
@@ -79,6 +82,9 @@ export default function App() {
           <Route path="/debts" element={<DebtsPage />} />
           <Route path="/households" element={<HouseholdsPage />} />
           <Route path="/tax" element={<TaxPage />} />
+          <Route path="/calendar" element={<CalendarPage />} />
+          <Route path="/achievements" element={<GamificationPage />} />
+          <Route path="/splits" element={<SplitsPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
 

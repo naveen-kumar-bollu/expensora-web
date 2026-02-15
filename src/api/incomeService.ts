@@ -33,4 +33,7 @@ export const incomeService = {
 
   delete: (id: string) =>
     api.delete(`/incomes/${id}`),
+
+  bulkDelete: (ids: string[]) =>
+    api.post('/incomes/bulk-delete', ids),
 };

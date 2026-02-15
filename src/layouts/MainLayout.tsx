@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import Sidebar from './Sidebar';
+import FloatingActionButton from '../components/FloatingActionButton';
 
 export default function MainLayout() {
   return (
@@ -10,6 +11,7 @@ export default function MainLayout() {
           <Outlet />
         </div>
       </main>
+      <FloatingActionButton />
     </div>
   );
 }

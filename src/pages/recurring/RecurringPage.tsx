@@ -181,7 +181,7 @@ export default function RecurringPage() {
       )}
 
       <Modal isOpen={showModal} onClose={handleCloseModal} title="Add Recurring Transaction">
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-dark-300 mb-1">Type</label>
             <select
@@ -261,7 +261,7 @@ export default function RecurringPage() {
             />
           </div>
 
-          <div>
+          <div className="md:col-span-2">
             <label className="block text-sm font-medium text-dark-300 mb-1">End Date (Optional)</label>
             <input
               type="date"
@@ -271,7 +271,7 @@ export default function RecurringPage() {
             />
           </div>
 
-          <div className="flex gap-2 justify-end pt-4">
+          <div className="flex gap-2 justify-end pt-4 md:col-span-2">
             <Button type="button" variant="secondary" onClick={handleCloseModal}>
               Cancel
             </Button>
