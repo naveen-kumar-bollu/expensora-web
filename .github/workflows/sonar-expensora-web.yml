@@ -30,13 +30,13 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: expensora-web/package-lock.json
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
       - name: Run tests with coverage
-        run: npm run test --if-present -- --coverage --coverageReporters=lcov || echo "No tests configured, skipping coverage"
+        run: npm run test:coverage --if-present || echo "No tests configured, skipping coverage"
 
       - name: Cache SonarCloud packages
         uses: actions/cache@v4
@@ -62,7 +62,7 @@ jobs:
           fi
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
