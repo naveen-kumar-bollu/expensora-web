@@ -158,13 +158,13 @@ export default function GoalsPage() {
         <Card>
           <h3 className="text-sm font-medium text-dark-400">Total Target</h3>
           <p className="text-3xl font-bold text-dark-50 mt-2">
-            ${activeGoals.reduce((sum, g) => sum + g.targetAmount, 0).toFixed(0)}
+            ₹{activeGoals.reduce((sum, g) => sum + g.targetAmount, 0).toFixed(0)}
           </p>
         </Card>
         <Card>
           <h3 className="text-sm font-medium text-dark-400">Total Saved</h3>
           <p className="text-3xl font-bold text-dark-50 mt-2">
-            ${activeGoals.reduce((sum, g) => sum + g.currentAmount, 0).toFixed(0)}
+            ₹{activeGoals.reduce((sum, g) => sum + g.currentAmount, 0).toFixed(0)}
           </p>
         </Card>
       </div>
@@ -208,11 +208,11 @@ export default function GoalsPage() {
                 <div className="flex justify-between text-sm mb-4">
                   <div>
                     <p className="text-dark-500">Current</p>
-                    <p className="text-dark-200 font-medium">${goal.currentAmount.toFixed(2)}</p>
+                    <p className="text-dark-200 font-medium">₹{goal.currentAmount.toFixed(2)}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-dark-500">Target</p>
-                    <p className="text-dark-200 font-medium">${goal.targetAmount.toFixed(2)}</p>
+                    <p className="text-dark-200 font-medium">₹{goal.targetAmount.toFixed(2)}</p>
                   </div>
                 </div>
 
@@ -247,7 +247,7 @@ export default function GoalsPage() {
                     <h3 className="font-semibold text-dark-50">{goal.name}</h3>
                     <p className="text-sm text-green-400">✓ Completed</p>
                   </div>
-                  <p className="text-lg font-bold text-dark-200">${goal.targetAmount.toFixed(2)}</p>
+                  <p className="text-lg font-bold text-dark-200">₹{goal.targetAmount.toFixed(2)}</p>
                 </div>
               </Card>
             ))}
